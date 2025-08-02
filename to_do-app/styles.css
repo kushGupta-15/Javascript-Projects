@@ -1,0 +1,357 @@
+/* ul li::before {
+    background-image: url(images/unchecked.png);
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated background elements */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.08)"/><circle cx="90" cy="10" r="1.2" fill="rgba(255,255,255,0.06)"/><circle cx="10" cy="90" r="0.8" fill="rgba(255,255,255,0.07)"/></svg>') repeat;
+    animation: float 25s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.todo-app {
+    width: 100%;
+    max-width: 540px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.todo-app::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+    background-size: 300% 300%;
+    animation: gradientShift 8s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.todo-app:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.todo-app h2 {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 600;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    gap: 15px;
+}
+
+.todo-app h2 img {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-8px);
+    }
+    60% {
+        transform: translateY(-4px);
+    }
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 8px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.row:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.02);
+}
+
+input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    padding: 15px 20px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 400;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(238, 90, 36, 0.4);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ee5a24, #ff6b6b);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(238, 90, 36, 0.6);
+}
+
+button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+ul li {
+    list-style: none;
+    font-size: 17px;
+    padding: 18px 8px 18px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    background: rgba(255, 255, 255, 0.08);
+    margin-bottom: 12px;
+    border-radius: 15px;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideInLeft 0.5s ease forwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+ul li:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+ul li::before {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+ul li.checked {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: line-through;
+    background: rgba(255, 255, 255, 0.05);
+    animation: checkComplete 0.5s ease;
+}
+
+@keyframes checkComplete {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+ul li.checked::before {
+    background: linear-gradient(135deg, #2ed573, #7bed9f);
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    border-color: #2ed573;
+    box-shadow: 0 0 15px rgba(46, 213, 115, 0.5);
+}
+
+ul li span {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    color: #ff6b6b;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    background: rgba(255, 107, 107, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+ul li span:hover {
+    background: rgba(255, 107, 107, 0.2);
+    color: #fff;
+    transform: translateY(-50%) scale(1.1) rotate(90deg);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Empty state styling */
+#list-container:empty::before {
+    content: "No tasks yet! Add your first task above.";
+    display: block;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+    padding: 40px 20px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .todo-app {
+        margin: 50px auto 20px;
+        padding: 30px 20px 50px;
+    }
+    
+    .todo-app h2 {
+        font-size: 28px;
+    }
+    
+    .row {
+        padding: 6px;
+    }
+    
+    input {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    ul li {
+        font-size: 16px;
+        padding: 15px 8px 15px 45px;
+    }
+    
+    ul li span {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+    }
+}
+
+/* Custom scrollbar */
+#list-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+#list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#list-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+#list-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+#list-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+}
